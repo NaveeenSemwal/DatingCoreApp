@@ -11,4 +11,15 @@
     <ProjectReference Include="..\DatingApp.Framework.Data\DatingApp.Framework.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Errors\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+  </ItemGroup>
+
 </Project>

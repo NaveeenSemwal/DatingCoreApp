@@ -12,13 +12,13 @@ namespace DatingApp.Framework.Data.Model
     public class Photo
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public required string Url { get; set; }
         public bool IsMain { get; set; }
         public string? PublicId { get; set; }
 
         // Navigation properties
-        public int ApplicationUserId { get; set; }
+        //public Guid ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; } = null!;
 
     }

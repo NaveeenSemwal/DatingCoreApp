@@ -113,9 +113,11 @@ namespace DatingApp.Framework.Data.Migrations
 
             modelBuilder.Entity("DatingApp.Framework.Data.Model.Photo", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ApplicationUserId")
                         .HasColumnType("int");

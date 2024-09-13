@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace DatingApp.Framework.Data.Model
 {
-    //[Table("ApplicationRole")]
-    //public class ApplicationRole : IdentityRole<int>
-    //{
-    //    // Navigation property
-    //    public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
-    //}
+    [Table("ApplicationRole")]
+    public class ApplicationRole : IdentityRole<int>
+    {
+        // Navigation property
+        //public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
+    }
 }

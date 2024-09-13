@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using DatingApp.Framework.Data.Context;
+using DatingApp.Framework.Data.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -39,6 +42,15 @@ namespace DatingApp.Framework.Business
                                  ClockSkew = TimeSpan.Zero
                              };
                          });
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureIdentityCore(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddIdentityCore<ApplicationUser>(opt => opt.User.RequireUniqueEmail = false).AddRoles<ApplicationRole>()
+             .AddRoleManager<RoleManager<ApplicationRole>>()
+             .AddEntityFrameworkStores<DataContext>();
 
             return services;
         }

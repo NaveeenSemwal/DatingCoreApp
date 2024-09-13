@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatingApp.Framework.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240905133319_Initial")]
+    [Migration("20240913152951_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -64,11 +64,9 @@ namespace DatingApp.Framework.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Interests")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Introducation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("KnownAs")
@@ -85,7 +83,6 @@ namespace DatingApp.Framework.Data.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LookingFor")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -119,9 +116,11 @@ namespace DatingApp.Framework.Data.Migrations
 
             modelBuilder.Entity("DatingApp.Framework.Data.Model.Photo", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ApplicationUserId")
                         .HasColumnType("int");
@@ -130,7 +129,6 @@ namespace DatingApp.Framework.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("PublicId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")

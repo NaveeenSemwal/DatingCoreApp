@@ -1,5 +1,6 @@
 ﻿using DatingApp.Framework.Business.Interfaces;
 using DatingApp.Framework.Business.Services;
+using DatingApp.Framework.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -20,13 +21,15 @@ namespace DatingApp.Framework.Business
             // http request should be AddScoped
 
             //services.AddScoped<IBooksServive, BooksServive>();
-            //services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IUsersService, UsersService>();
             //services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<ITokenService, TokenService>();
             //services.AddScoped<IPhotoService, PhotoService>();
 
             //services.Configure<CloudinarySetting>(configuration.GetSection("CloudinarySetting"));
             //services.TryAddSingleton<CloudinarySetting>();
+
+            services.ConfigureAppRepositories(configuration);
         }
 
     }

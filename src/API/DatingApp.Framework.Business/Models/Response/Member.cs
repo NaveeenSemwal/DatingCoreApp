@@ -33,7 +33,7 @@ namespace DatingApp.Framework.Business.Models.Response
 
         public string Country { get; set; }
 
-        //public List<PhotoDto> Photos { get; set; } = new();
+        public List<MemberPhoto>? Photos { get; set; }
         public List<string> Roles { get; set; } = new();
     }
 }

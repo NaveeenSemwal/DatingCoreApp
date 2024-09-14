@@ -1,5 +1,8 @@
 ﻿using Asp.Versioning;
+using Books.Portal.Framework.Business.Mapping;
+using DatingApp.Common.Helpers;
 using DatingApp.Framework.Business.Interfaces;
+using DatingApp.Framework.Business.Mapping;
 using DatingApp.Framework.Business.Services;
 using DatingApp.Framework.Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,7 +25,9 @@ namespace DatingApp.Framework.Business
             services.AddControllers();
 
 
-            services.AddDbContext<DataContext>(o => o.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddAutoMapper(typeof(BusinessToDataProfile),
+                typeof(DataToBusinessProfile),
+                typeof(CustomConverter<,>));
 
             services.AddCors();
 

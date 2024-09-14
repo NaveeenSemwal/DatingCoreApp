@@ -29,7 +29,7 @@ namespace DatingApp.Framework.Business
                 typeof(DataToBusinessProfile),
                 typeof(CustomConverter<,>));
 
-            services.AddCors();
+           
 
             // Add API versioning
             services.AddApiVersioning(options =>

@@ -15,7 +15,7 @@ namespace DatingApp.Framework.Business.Services
 {
     public class TokenService(IConfiguration configuration) : ITokenService
     {
-        public string CreateToken(Data.Model.ApplicationUser user, IList<string> roles)
+        public async Task<string> CreateToken(Data.Model.ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(configuration["TokenKey"]) ?? throw new Exception ("Cannot access token key from appsettings");
@@ -23,7 +23,7 @@ namespace DatingApp.Framework.Business.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = GetClaimsIdentity(user, roles),
+                Subject = GetClaimsIdentity(user),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
             };
@@ -34,17 +34,17 @@ namespace DatingApp.Framework.Business.Services
 
 
 
-        private ClaimsIdentity GetClaimsIdentity(ApplicationUser user, IList<string> roles)
+        private ClaimsIdentity GetClaimsIdentity(ApplicationUser user)
         {
             var claims = new ClaimsIdentity();
 
             claims.AddClaim(new Claim("id", user.Id.ToString()));
             claims.AddClaim(new Claim(ClaimTypes.Name, user.NormalizedUserName));
 
-            foreach (var item in roles)
-            {
-                claims.AddClaim(new Claim(ClaimTypes.Role, item));
-            }
+            //foreach (var item in roles)
+            //{
+            //    claims.AddClaim(new Claim(ClaimTypes.Role, item));
+            //}
 
             return new ClaimsIdentity(claims);
         }

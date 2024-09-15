@@ -5,6 +5,7 @@ import { NgIf } from '@angular/common';
 // import { TextInputComponent } from "../_forms/text-input/text-input.component";
 // import { DatePickerComponent } from '../_forms/date-picker/date-picker.component';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
   private accountService = inject(AccountService);
   // private fb = inject(FormBuilder);
   private router = inject(Router);
+  private toastr =  inject(ToastrService);
   
   registerForm: FormGroup = new FormGroup({});
   maxDate = new Date();
@@ -71,7 +73,7 @@ export class RegisterComponent implements OnInit {
           this.cancel();
           // this.router.navigateByUrl('/members');
         },
-      error: error => this.validationErrors = error
+      error: error => this.toastr.error(error.error)
     })
   }
 

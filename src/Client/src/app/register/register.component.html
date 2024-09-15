@@ -1,0 +1,68 @@
+<div mat-dialog-content>
+
+<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+
+    <h2 class="text-center text-primary">Sign up</h2>
+    <hr>
+
+    <div class="mb-3 form-floating">
+        <!-- <label for="gender" style="margin-right:10px">I am a</label>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="gender" value="male">
+            <label class="form-check-label" for="inlineRadio1">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="gender" value="female">
+            <label class="form-check-label" for="inlineRadio2">Female</label>
+        </div> -->
+    </div>
+
+    <div class="mb-3 form-floating">
+        <input 
+            type="text"
+            class="form-control"
+            name="username"
+            [(ngModel)]="model.username"
+            placeholder="Username">
+
+            <label>Username</label>
+    </div>
+
+    <div class="mb-3 form-floating">
+        <input 
+            type="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="model.password"
+            placeholder="Password">
+
+            <label>Password</label>
+    </div>
+
+    <!-- <div class="mb-3">
+
+        <label>Who is your favourite frined ..</label>
+
+      <select class="form-select">
+       @for (user of usersFromHomeComponent(); track $index) {
+           <option value="user">{{user}}</option>
+
+       }
+      </select>
+
+           
+    </div> -->
+    <hr>
+
+    <div class="form-group text-center">
+        <button class="btn btn-success me-2"  type="submit">Register</button>
+        <button class="btn btn-default me-2" (click)="cancel()" type="button">Cancel</button>
+    </div>
+
+    <!-- <div>
+        <p> Form value : {{ registerForm.value | json}}</p>
+        <p>Form Status : {{registerForm.status | json}}</p>
+    </div> -->
+</form>
+</div>

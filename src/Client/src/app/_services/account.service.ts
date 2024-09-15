@@ -31,27 +31,19 @@ export class AccountService {
          this.setCurrentUser(user);
         }
       }))
+  }
 
-        // const user: User = {
-
-        //   userName: loginResponse.user.name,
-        //   token: loginResponse.token,
-        //   gender: loginResponse.user.gender,
-        //   knownAs: loginResponse.user.knownAs,
-        //   photoUrl: loginResponse.user.photoUrl,
-        //   roles: new Array<string>(),
-
-        // };
-
-        // if (user) {
-
-        //   this.setCurrentUser(user);
-        // }
-
-        // return user;
-      
-
-
+  register(model: any) {
+    return this.http.post<User>(this.baseUrl + "Account/register", model).pipe(
+      map(user => 
+        {
+        if (user) {
+          console.log(JSON.stringify(user));
+         this.setCurrentUser(user);
+        }
+        return user;
+      })
+    )
   }
 
 //   register(model: any): Observable<any> {

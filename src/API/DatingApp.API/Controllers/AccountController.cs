@@ -17,25 +17,23 @@ namespace DatingApp.API.Controllers
                    IMapper mapper) : BaseApiController
     {
         [HttpPost("register")]
-        public async Task<ActionResult<Member>> Register([FromBody] RegisterationRequest registerationRequest)
+        public async Task<ActionResult<User>> Register(RegisterationRequest registerationRequest)
         {
-            //var registerationResponse = await _usersService.Register(registerationRequest);
+            if (await UserExists(registerationRequest.Username)) return BadRequest("Username is taken");
 
-            //if (registerationResponse.ErrorMessages.Count == 0)
-            //{
-            //    _aPIResponse.IsSuccess = true;
-            //    _aPIResponse.StatusCode = System.Net.HttpStatusCode.OK;
-            //}
-            //else
-            //{
-            //    _aPIResponse.IsSuccess = false;
-            //    _aPIResponse.StatusCode = System.Net.HttpStatusCode.InternalServerError;
-            //    _aPIResponse.ErrorMessages = registerationResponse.ErrorMessages;
-            //}
+            var user = mapper.Map<ApplicationUser>(registerationRequest);
 
-            //_aPIResponse.Data = registerationResponse;
+            user.UserName = registerationRequest.Username.ToLower();
+            var result = await userManager.CreateAsync(user, registerationRequest.Password);
+            if (!result.Succeeded) return BadRequest(result.Errors);
 
-            return Ok();
+            return new User
+            {
+                Username = user.UserName,
+                Token = await tokenService.CreateToken(user),
+                KnownAs = user.KnownAs,
+                Gender = user.Gender
+            };
         }
 
 
@@ -58,7 +56,12 @@ namespace DatingApp.API.Controllers
                 Gender = user.Gender,
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
             };
-            
+
+        }
+
+        private async Task<bool> UserExists(string username)
+        {
+            return await userManager.Users.AnyAsync(x => x.NormalizedUserName == username.ToUpper()); // Bob != bob
         }
     }
 }

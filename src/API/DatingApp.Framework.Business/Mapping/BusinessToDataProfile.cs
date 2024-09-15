@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DatingApp.Framework.Business.Models.Request;
+using DatingApp.Framework.Data.Model;
 
 namespace DatingApp.Framework.Business.Mapping
 {
@@ -14,9 +16,9 @@ namespace DatingApp.Framework.Business.Mapping
 
             //CreateMap<LoginRequestDto, Data.Model.ApplicationUser>();
 
-            //CreateMap<RegisterationRequestDto, Data.Model.ApplicationUser>()
-            //     .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Username))
-            //     .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Username + "@gmail.com"));
+            CreateMap<RegisterationRequest, ApplicationUser>()
+                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Username))
+                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Username + "@gmail.com"));
 
             //CreateMap<MemberUpdateDto, Data.Model.ApplicationUser>();
         }

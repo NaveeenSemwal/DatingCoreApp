@@ -10,13 +10,13 @@ namespace DatingApp.Framework.Data.Model
         [Column(TypeName = "Date")]
         public DateTime DateOfBirth { get; set; }
 
-        public required string KnownAs { get; set; }
+        public required string KnownAs { get; set; } = "";
 
         public DateTime Created { get; set; } = DateTime.UtcNow;
 
         public DateTime LastActive { get; set; } = DateTime.UtcNow;
 
-        public required string Gender { get; set; }
+        public required string Gender { get; set; } = "";
 
         public string? Introducation { get; set; }
 
@@ -24,9 +24,9 @@ namespace DatingApp.Framework.Data.Model
 
         public string? Interests { get; set; }
 
-        public required string City { get; set; }
+        public required string City { get; set; } = "New Delhi";
 
-        public required string Country { get; set; }
+        public required string Country { get; set; } = "India";
 
         public List<Photo> Photos { get; set; } = [];
 

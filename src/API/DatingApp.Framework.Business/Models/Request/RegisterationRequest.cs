@@ -17,23 +17,23 @@ namespace DatingApp.Framework.Business.Models.Request
 
         [Required]
         public string Password { get; set; }
-        public string Role { get; set; } = "User";
+        //public string Role { get; set; } = "User";
 
-        [Required]
-        public DateTime DateOfBirth { get; set; }
+        //[Required]
+        //public DateTime DateOfBirth { get; set; }
 
-        [Required]
-        public string KnownAs { get; set; }
+        //[Required]
+        //public string KnownAs { get; set; }
 
-        [Required]
-        public string Gender { get; set; }
+        //[Required]
+        //public string Gender { get; set; }
 
-        public string Introducation { get; set; }
+        //public string Introducation { get; set; }
 
-        public string LookingFor { get; set; }
+        //public string LookingFor { get; set; }
 
-        public string Interests { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
+        //public string Interests { get; set; }
+        //public string City { get; set; }
+        //public string Country { get; set; }
     }
 }

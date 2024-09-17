@@ -1,8 +1,11 @@
-﻿using DatingApp.Common.Helpers;
+﻿using AutoMapper;
+using DatingApp.Common.Extensions;
+using DatingApp.Common.Helpers;
 using DatingApp.Framework.Business.Interfaces;
 using DatingApp.Framework.Business.Models.Response;
 using DatingApp.Framework.Data.Context;
 using DatingApp.Framework.Data.Model;
+using DatingApp.Framework.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +19,19 @@ namespace DatingApp.API.Controllers
     {
         private readonly IUsersService _usersService;
         private readonly ILogger<UsersController> _logger;
+        private readonly DataContext dataContext;
+        private readonly IMapper mapper;
+
         //protected APIResponse _aPIResponse;
 
 
-        public UsersController(IUsersService usersService, ILogger<UsersController> logger)
+        public UsersController(IUsersService usersService, ILogger<UsersController> logger, DataContext dataContext, IMapper mapper)
         {
             _usersService = usersService ??
                 throw new ArgumentNullException(nameof(usersService));
             _logger = logger;
+            this.dataContext = dataContext;
+            this.mapper = mapper;
 
             //_aPIResponse = new APIResponse();
         }
@@ -33,12 +41,18 @@ namespace DatingApp.API.Controllers
         /// </summary>
         /// <param name="searchParams"></param>
         /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Member>>> GetUsers()
+        {
+            //userParams.CurrentUsername = User.GetUsername();
+            var users = await dataContext.Users.Include("Photos").ToListAsync();
 
-        //[HttpGet]
-        //public async Task<PagedList<Member>> GetAll([FromQuery] UserParams searchParams)
-        //{
-        //    return await _usersService.GetAll(searchParams);
-        //}
+            var usersToReturn  = this.mapper.Map<IEnumerable<Member>>(users);
+
+          //  Response.AddPaginationHeader(users);
+
+            return Ok(usersToReturn);
+        }
 
         /// <summary>
         /// The Route data by default is string. So no need of {username : string}

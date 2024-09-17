@@ -13,7 +13,7 @@ namespace Books.Portal.Framework.Business.Mapping
             //    .ForMember(dest => dest.Author, opt => opt.MapFrom(src =>
             //        $"{src.Author.FirstName} {src.Author.LastName}"));
 
-            //CreateMap<Photo, PhotoDto>();
+            CreateMap<Photo, MemberPhoto>();
 
             //CreateMap<(ApplicationUser LocalUser, string Token), LoginResponseDto>()
             //     .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.LocalUser))

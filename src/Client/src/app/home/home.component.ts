@@ -14,7 +14,7 @@ import { RegisterComponent } from "../register/register.component";
 export class HomeComponent  {
 
   registerMode = false;
-  users: any;
+  // users: any;
   //  friends : string[] = ['Naveen','Kiran','Umesh','Lakshita','Kusum','Navneet',];
    constructor() { }
 

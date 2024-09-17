@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Observable, take } from 'rxjs';
+import { MembersService } from '../../_services/members.service';
+import { Member } from '../../_models/member';
+import { MemberCardComponent } from "../member-card/member-card.component";
 // import { Selector } from 'src/app/_customcontrols/select-input/select';
 // import { Member } from 'src/app/_models/member';
 // import { PaginatedResult, Pagination } from 'src/app/_models/pagination';
@@ -14,12 +17,12 @@ import { Observable, take } from 'rxjs';
   standalone : true,
   templateUrl: './member-list.component.html',
   styleUrls: ['./member-list.component.css'],
-  imports : []
+  imports: [MemberCardComponent]
 })
 export class MemberListComponent implements OnInit {
 
   // members$: Observable<Member[]> | undefined;
-  // members: Member[] | undefined;
+   members: Member[] = [];
   // result: Observable<PaginatedResult<Member[]>> | undefined;
   // pagination: Pagination | undefined;
 
@@ -27,7 +30,7 @@ export class MemberListComponent implements OnInit {
 
   // genderList: Selector[] = [{ value: "male", display: "Male" }, { value: "female", display: "Female" }]
 
-
+  memberService = inject(MembersService);
   constructor() {
 
     // this.userParams = this.membersService.getUserParams();
@@ -51,29 +54,15 @@ export class MemberListComponent implements OnInit {
   }
 
   loadmembers() {
+      this.memberService.getMembers().subscribe({
+        next: response => {
+            this.members = response;
+        }
+      });
+    }
 
-    // if (this.userParams) {
+  
 
-    //   this.membersService.setUserParams(this.userParams);
-
-    //   this.membersService.getMembers(this.userParams).subscribe({
-
-    //     next: response => {
-    //       if (response.result && response.pagination) {
-
-    //         this.members = response.result;
-    //         this.pagination = response.pagination;
-    //       }
-    //     }
-    //   });
-    // }
-
-  }
-
-  resetFilters() {
-
-      // this.userParams = this.membersService.resetUserParams();
-      // this.loadmembers();
-  }
+  
 }
 

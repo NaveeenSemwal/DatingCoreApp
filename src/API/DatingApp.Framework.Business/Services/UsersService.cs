@@ -42,6 +42,8 @@ namespace DatingApp.Framework.Business.Services
             //_photoService = photoService;
         }
 
+        
+
         public async Task<Member> Get(string username)
         {
             var user = await _unitOfWork.UserRepository.GetAsync(x => x.UserName == username, false, includeProperties: "Photos");

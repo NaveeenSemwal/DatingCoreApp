@@ -1,5 +1,6 @@
 import { Component, input, Input, OnInit } from '@angular/core';
 import { Member } from '../../_models/member';
+import { RouterLink } from '@angular/router';
 // import { Member } from 'src/app/_models/member';
 
 @Component({
@@ -7,7 +8,7 @@ import { Member } from '../../_models/member';
   standalone : true,
   templateUrl: './member-card.component.html',
   styleUrls: ['./member-card.component.css'],
-  imports : []
+  imports : [RouterLink]
 })
 export class MemberCardComponent implements OnInit {
 

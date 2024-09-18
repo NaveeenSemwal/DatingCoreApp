@@ -4,6 +4,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs';
 
+// Here we are modifying request, after sending the request.
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   const router = inject(Router);

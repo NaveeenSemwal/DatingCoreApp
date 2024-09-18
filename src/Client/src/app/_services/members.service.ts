@@ -28,7 +28,7 @@ export class MembersService {
 
   getMembers() {
     
-    return this.http.get<Member[]>(this.baseUrl + "users",this.getHttpOptions()).pipe(
+    return this.http.get<Member[]>(this.baseUrl + "users").pipe(
       map(response => {
         return response;
       }))
@@ -49,15 +49,6 @@ export class MembersService {
         this.members[index] = { ...this.members[index], ...model };
 
       }))
-  }
-
-  getHttpOptions(){
-
-    return {
-        headers : new HttpHeaders({
-            Authorization : `Bearer ${this.accountService.currentUser()?.token}`
-        }) 
-    }
   }
 
 }

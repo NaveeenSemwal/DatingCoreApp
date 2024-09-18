@@ -23,7 +23,7 @@ namespace Books.Portal.Framework.Business.Mapping
 
             CreateMap<ApplicationUser, Member>()
                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain)!.Url))
-               .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName));
+               .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.UserName));
 
 
             // Automapper with inherited list

@@ -9,7 +9,7 @@ namespace DatingApp.Framework.Business.Models.Response
     public class Member
     {
         public string Id { get; set; }
-        public string Name { get; set; }
+        public string Username { get; set; }
 
         public int Age { get; set; }
 

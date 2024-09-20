@@ -63,7 +63,7 @@ namespace DatingApp.Framework.Data.Migrations
                     b.Property<string>("Interests")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Introducation")
+                    b.Property<string>("Introduction")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("KnownAs")

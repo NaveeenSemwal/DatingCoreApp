@@ -18,7 +18,7 @@ namespace DatingApp.Framework.Data.Model
 
         public required string Gender { get; set; } = "";
 
-        public string? Introducation { get; set; }
+        public string? Introduction { get; set; }
 
         public string? LookingFor { get; set; }
 

@@ -22,7 +22,7 @@ namespace DatingApp.Framework.Data.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastActive = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Introducation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Introduction = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LookingFor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Interests = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),

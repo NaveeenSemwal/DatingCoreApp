@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatingApp.Framework.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240913152951_Initial")]
+    [Migration("20240920062404_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -66,7 +66,7 @@ namespace DatingApp.Framework.Data.Migrations
                     b.Property<string>("Interests")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Introducation")
+                    b.Property<string>("Introduction")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("KnownAs")

@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using DatingApp.Framework.Business.Interfaces;
+using DatingApp.Framework.Business.Models;
 using DatingApp.Framework.Business.Models.Request;
 using DatingApp.Framework.Business.Models.Response;
 using DatingApp.Framework.Data.Interfaces;
 using DatingApp.Framework.Data.Model;
+using DatingApp.Framework.Data.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -58,5 +62,21 @@ namespace DatingApp.Framework.Business.Services
             return _mapper.Map<Member>(user);
         }
 
+        /// <summary>
+        ///  TODO - Replace this int with any enum,
+        ///  NOTE - We need to set traking value to TRUE in GetAsync so that EF can track the entities and update it.
+        /// </summary>
+        /// <param name="memberUpdate"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<bool> UpdateUser(MemberUpdate memberUpdate , string username)
+        {
+            // DO to EF track changes it will update the entities itself
+            var user = await _unitOfWork.UserRepository.GetAsync(x => x.UserName == username, true, includeProperties: "Photos");
+
+            _mapper.Map(memberUpdate, user);
+
+            return  await _unitOfWork.Complete();
+        }
     }
 }

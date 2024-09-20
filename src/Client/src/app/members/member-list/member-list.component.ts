@@ -22,7 +22,7 @@ import { MemberCardComponent } from "../member-card/member-card.component";
 export class MemberListComponent implements OnInit {
 
   // members$: Observable<Member[]> | undefined;
-   members: Member[] = [];
+  //  members: Member[] = [];
   // result: Observable<PaginatedResult<Member[]>> | undefined;
   // pagination: Pagination | undefined;
 
@@ -38,7 +38,11 @@ export class MemberListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadmembers();
+
+    if (this.memberService.members.length === 0) {
+      this.loadmembers();
+    }
+    
 
   }
 
@@ -54,15 +58,7 @@ export class MemberListComponent implements OnInit {
   }
 
   loadmembers() {
-      this.memberService.getMembers().subscribe({
-        next: response => {
-            this.members = response;
-        }
-      });
+      this.memberService.getMembers();
     }
-
-  
-
-  
 }
 

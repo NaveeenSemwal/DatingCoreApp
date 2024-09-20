@@ -1,4 +1,5 @@
 ﻿using DatingApp.Common.Helpers;
+using DatingApp.Framework.Business.Models;
 using DatingApp.Framework.Business.Models.Request;
 using DatingApp.Framework.Business.Models.Response;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +23,7 @@ namespace DatingApp.Framework.Business.Interfaces
 
         Task<Member> Get(object id);
 
-        //Task<bool> UpdateUser(MemberUpdateDto memberUpdateDto);
+        Task<bool> UpdateUser(MemberUpdate memberUpdate, string username);
 
         //Task<MemberDto> GetUsersWithRoles();
 

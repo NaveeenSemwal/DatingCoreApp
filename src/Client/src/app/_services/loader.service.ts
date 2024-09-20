@@ -1,32 +1,32 @@
-// import { Injectable } from '@angular/core';
-// import { NgxSpinnerService } from 'ngx-spinner';
+import { inject, Injectable } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class LoaderService {
+@Injectable({
+  providedIn: 'root'
+})
+export class LoaderService {
 
-//   requestCount = 0;
+  private spinner = inject(NgxSpinnerService);
+  requestCount = 0;
 
-//   constructor(private spinner: NgxSpinnerService) { }
-
-//   loadSpinner() {
-//     this.requestCount++;
+  
+  loadSpinner() {
+    this.requestCount++;
     
-//     this.spinner.show(undefined, {
-//       type: 'line-scale-party',
-//       bdColor: 'rgba(255, 255, 255, 0)',
-//       color: '#333333'
-//     });
-//   }
+    this.spinner.show(undefined, {
+      type: 'line-scale-party',
+      bdColor: 'rgba(255, 255, 255, 0)',
+      color: '#333333'
+    });
+  }
 
-//   unLoadSpinner() {
-//     this.requestCount--;
+  unLoadSpinner() {
+    this.requestCount--;
 
-//     if (this.requestCount <= 0) {
+    if (this.requestCount <= 0) {
 
-//       this.requestCount =0;
-//       this.spinner.hide();
-//     }
-//   }
-// }
+      this.requestCount =0;
+      this.spinner.hide();
+    }
+  }
+}

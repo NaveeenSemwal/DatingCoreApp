@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using DatingApp.Framework.Business.Models;
 using DatingApp.Framework.Business.Models.Request;
+using DatingApp.Framework.Business.Models.Response;
 using DatingApp.Framework.Data.Model;
 
 namespace DatingApp.Framework.Business.Mapping
@@ -12,7 +14,7 @@ namespace DatingApp.Framework.Business.Mapping
 
             //CreateMap<JsonPatchDocument<BookForCreation>, JsonPatchDocument<Data.Model.Book>>();
 
-            //CreateMap<PhotoDto, Photo>();
+            CreateMap<MemberPhoto, Photo>();
 
             //CreateMap<LoginRequestDto, Data.Model.ApplicationUser>();
 
@@ -20,7 +22,7 @@ namespace DatingApp.Framework.Business.Mapping
                  .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Username))
                  .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Username + "@gmail.com"));
 
-            //CreateMap<MemberUpdateDto, Data.Model.ApplicationUser>();
+            CreateMap<MemberUpdate, ApplicationUser>();
         }
         
     }

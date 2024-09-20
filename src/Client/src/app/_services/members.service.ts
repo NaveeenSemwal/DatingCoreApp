@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { map, of, take } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { map, of, take, tap } from 'rxjs';
 
 import { AccountService } from './account.service';
 import { environment } from '../../environments/environment.development';
@@ -15,10 +15,12 @@ export class MembersService {
   private http = inject(HttpClient);
   private accountService = inject(AccountService);
 
+  members  = signal<Member[]>([]);
+
   baseUrl = environment.apiUrl+ "v1/";
 
 
-  members: Member[] = [];
+  // members: Member[] = [];
 
 
   user: User | undefined;
@@ -27,28 +29,26 @@ export class MembersService {
   memberCache = new Map();
 
   getMembers() {
-    
-    return this.http.get<Member[]>(this.baseUrl + "users").pipe(
-      map(response => {
-        return response;
-      }))
+    this.http.get<Member[]>(this.baseUrl + "users").subscribe({
+      next :  value => this.members.set(value)
+    })
   }
 
 
   getMember(username: string) {
+
+    const member = this.members().find(x=>x.username === username);
+    if(member !== undefined) return of(member);
+
     return this.http.get<Member>(this.baseUrl + "users/" + username)
   }
 
   updateMember(model: Member) {
-
-    return this.http.put(this.baseUrl + "v1/users", model).pipe(
-      map(() => {
-
-        const index = this.members.indexOf(model);
-        //  Update the members array with incoming member using array destructring and spread operator {}
-        this.members[index] = { ...this.members[index], ...model };
-
+    return this.http.put(this.baseUrl + "users", model)
+    .pipe(
+      tap(() => {
+        this.members.update(x=>
+          x.map(m=> m.username === model.username ? model : m))
       }))
   }
-
 }

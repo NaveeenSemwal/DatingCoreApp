@@ -17,7 +17,7 @@ namespace DatingApp.API.Controllers
                    IMapper mapper) : BaseApiController
     {
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(RegisterationRequest registerationRequest)
+        public async Task<ActionResult<AppUser>> Register(RegisterationRequest registerationRequest)
         {
             if (await UserExists(registerationRequest.Username)) return BadRequest("Username is taken");
 
@@ -27,7 +27,7 @@ namespace DatingApp.API.Controllers
             var result = await userManager.CreateAsync(user, registerationRequest.Password);
             if (!result.Succeeded) return BadRequest(result.Errors);
 
-            return new User
+            return new AppUser
             {
                 Username = user.UserName,
                 Token = await tokenService.CreateToken(user),
@@ -39,7 +39,7 @@ namespace DatingApp.API.Controllers
 
 
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login([FromBody] LoginRequest loginRequest)
+        public async Task<ActionResult<AppUser>> Login([FromBody] LoginRequest loginRequest)
         {
             var user = await userManager.Users
              .Include(p => p.Photos)
@@ -48,7 +48,7 @@ namespace DatingApp.API.Controllers
 
             if (user == null || user.UserName == null) return Unauthorized("Invalid username");
 
-            return new User
+            return new AppUser
             {
                 Username = user.UserName,
                 KnownAs = user.KnownAs,

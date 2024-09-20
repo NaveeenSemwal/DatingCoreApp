@@ -1,7 +1,12 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, HostListener, inject, OnInit, ViewChild } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 // import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
+import { Member } from '../../_models/member';
+import { MembersService } from '../../_services/members.service';
+import { AccountService } from '../../_services/account.service';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ToastrService } from 'ngx-toastr';
 // import { Member } from 'src/app/_models/member';
 // import { User } from 'src/app/_models/user';
 // import { AccountService } from 'src/app/_services/account.service';
@@ -9,21 +14,25 @@ import { take } from 'rxjs';
 
 @Component({
   selector: 'app-member-edit',
+  standalone : true,
   templateUrl: './member-edit.component.html',
-  styleUrls: ['./member-edit.component.css']
+  styleUrls: ['./member-edit.component.css'],
+  imports : [TabsModule, FormsModule]
 })
 export class MemberEditComponent implements OnInit {
 
-  // member: Member | undefined;
+   member?: Member;
   // user: User | null = null;
 
+  private membersService = inject(MembersService);
+  private accountService = inject(AccountService);
+  private toastr = inject(ToastrService);
+
   // Need to use FormId for reset. editForm is the child template of current Component. In order to access editForm we have used that.
-  @ViewChild('editForm') editForm: NgForm | undefined;
+  @ViewChild('editForm') editForm?: NgForm;
 
   @HostListener('window:beforeunload', ['$event']) handleBrowserButton(event: any) {
-
     if (this.editForm?.dirty) {
-
       event.returnValue = true;
     }
   }
@@ -41,31 +50,33 @@ export class MemberEditComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.loadMember();
+     this.loadMember();
   }
 
-  // loadMember() {
-  //   if (!this.user) return;
+  loadMember() {
 
-  //   this.membersService.getMember(this.user.userName).subscribe({
-  //     next: (member) => {
-  //       this.member = member;
-  //     },
-  //     error(err) {
-  //       console.error(err);
-  //     },
-  //   })
-  // }
+    const user = this.accountService.currentUser();
+    if (!user) return;
 
-  // updateMember() {
+    this.membersService.getMember(user.username).subscribe({
+      next: (member) => {
+        this.member = member;
+      },
+      error(err) {
+        console.error(err);
+      },
+    })
+  }
 
-  //   this.membersService.updateMember(this.member!).subscribe({
-  //     next: _ => {
-
-  //       this.toastr.success("Profile updated sucessfully");
-  //       this.editForm?.reset(this.member);
-  //     }
-  //   });
-  // }
+  updateMember() {
+    this.membersService.updateMember(this.editForm?.value!).subscribe({
+      next: _ => {
+     this.toastr.success("Profile updated sucessfully");
+      
+       // This is just to retain the updated value in the form 
+        this.editForm?.reset(this.member);
+      }
+    });
+  }
 
 }

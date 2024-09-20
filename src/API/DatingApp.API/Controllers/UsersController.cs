@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
 using DatingApp.Common.Extensions;
-using DatingApp.Common.Helpers;
 using DatingApp.Framework.Business.Interfaces;
+using DatingApp.Framework.Business.Models;
 using DatingApp.Framework.Business.Models.Response;
 using DatingApp.Framework.Data.Context;
-using DatingApp.Framework.Data.Model;
 using DatingApp.Framework.Data.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace DatingApp.API.Controllers
 {
@@ -65,6 +63,28 @@ namespace DatingApp.API.Controllers
         public async Task<Member> GetbyUserName(string username)
         {
             return await _usersService.Get(username);
+        }
+
+        
+        /// <summary>
+        /// We donot return anything in terms of data to the user in case of Sucessful update.
+        /// </summary>
+        /// <param name="memberUpdate"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdate memberUpdate)
+        {
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
+
+            //var user = await _usersService.Get(username);
+
+            //if (user == null) return BadRequest("Could not find user");
+
+            //mapper.Map(memberUpdate, user);
+
+            if (await _usersService.UpdateUser(memberUpdate, username)) return NoContent();
+
+            return BadRequest("Failed to update the user");
         }
     }
 }

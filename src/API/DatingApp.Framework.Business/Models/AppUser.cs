@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatingApp.Framework.Business.Models
 {
-    public class User
+    public class AppUser
     {
         public required string Username { get; set; }
         public required string KnownAs { get; set; }

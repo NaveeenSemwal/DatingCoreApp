@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using Books.Portal.Framework.Business.Mapping;
+using DatingApp.Common.Configuration;
 using DatingApp.Common.Helpers;
 using DatingApp.Framework.Business.Interfaces;
 using DatingApp.Framework.Business.Mapping;
@@ -43,6 +44,8 @@ namespace DatingApp.Framework.Business
              options.GroupNameFormat = "'v'VVV";
              options.SubstituteApiVersionInUrl = true;
             });
+
+            services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
 
             return services;
         }

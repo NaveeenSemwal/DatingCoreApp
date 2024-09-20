@@ -24,7 +24,7 @@ namespace DatingApp.Framework.Business
             services.AddScoped<IUsersService, UsersService>();
             //services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<ITokenService, TokenService>();
-            //services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IPhotoService, PhotoService>();
 
             //services.Configure<CloudinarySetting>(configuration.GetSection("CloudinarySetting"));
             //services.TryAddSingleton<CloudinarySetting>();

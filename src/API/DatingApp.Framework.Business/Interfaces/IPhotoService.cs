@@ -1,4 +1,5 @@
 ﻿using CloudinaryDotNet.Actions;
+using DatingApp.Framework.Business.Models.Response;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace DatingApp.Framework.Business.Interfaces
 {
     public interface IPhotoService
     {
-        Task<ImageUploadResult> AddPhotoAsync(IFormFile file);
+        Task<MemberPhoto> AddPhotoAsync(IFormFile file, string username);
         Task<DeletionResult> DeletePhotoAsync(string publicId);
     }
 }

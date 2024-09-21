@@ -45,7 +45,7 @@ namespace DatingApp.Framework.Business
              options.SubstituteApiVersionInUrl = true;
             });
 
-            services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
+            services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySetting"));
 
             return services;
         }

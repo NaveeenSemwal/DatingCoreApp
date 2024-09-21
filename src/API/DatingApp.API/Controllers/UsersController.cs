@@ -4,11 +4,9 @@ using DatingApp.Framework.Business.Interfaces;
 using DatingApp.Framework.Business.Models;
 using DatingApp.Framework.Business.Models.Response;
 using DatingApp.Framework.Data.Context;
-using DatingApp.Framework.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace DatingApp.API.Controllers
 {
@@ -16,6 +14,7 @@ namespace DatingApp.API.Controllers
     public class UsersController : BaseApiController
     {
         private readonly IUsersService _usersService;
+        private readonly IPhotoService _photoService;
         private readonly ILogger<UsersController> _logger;
         private readonly DataContext dataContext;
         private readonly IMapper mapper;
@@ -23,10 +22,11 @@ namespace DatingApp.API.Controllers
         //protected APIResponse _aPIResponse;
 
 
-        public UsersController(IUsersService usersService, ILogger<UsersController> logger, DataContext dataContext, IMapper mapper)
+        public UsersController(IUsersService usersService, IPhotoService photoService, ILogger<UsersController> logger, DataContext dataContext, IMapper mapper)
         {
             _usersService = usersService ??
                 throw new ArgumentNullException(nameof(usersService));
+            _photoService = photoService;
             _logger = logger;
             this.dataContext = dataContext;
             this.mapper = mapper;
@@ -62,6 +62,7 @@ namespace DatingApp.API.Controllers
         [Route("{username}")]
         public async Task<Member> GetbyUserName(string username)
         {
+        
             return await _usersService.Get(username);
         }
 
@@ -74,17 +75,25 @@ namespace DatingApp.API.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdate memberUpdate)
         {
-            var username = User.FindFirst(ClaimTypes.Name)?.Value;
-
-            //var user = await _usersService.Get(username);
-
-            //if (user == null) return BadRequest("Could not find user");
-
-            //mapper.Map(memberUpdate, user);
-
-            if (await _usersService.UpdateUser(memberUpdate, username)) return NoContent();
+            if (await _usersService.UpdateUser(memberUpdate, User.GetUsername())) return NoContent();
 
             return BadRequest("Failed to update the user");
+        }
+
+        /// <summary>
+        /// For HTTP POST  - we return 201 status : Resource created
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        [HttpPost("add-photo")]
+        public async Task<ActionResult<MemberPhoto>> AddPhoto(IFormFile file)
+        {
+            var memeberPhoto = await _photoService.AddPhotoAsync(file, User.GetUsername());
+
+            if (string.IsNullOrWhiteSpace(memeberPhoto.Url)) return BadRequest("Error occured while Adding photo to the user");
+
+            return CreatedAtAction(nameof(GetbyUserName),
+                new { username = User.GetUsername() }, memeberPhoto);
         }
     }
 }

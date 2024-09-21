@@ -79,17 +79,23 @@
                         <h4 class="mt-2">Location Details</h4>
                         <div class="d-flex align-items-center">
                             <label>City: </label>
-                            <input type="text"
-                                [(ngModel)]="member.city"
-                                class="form-control mx-2"
-                                name="city"
-                            >
+                            <select name="city" class="form-select" [(ngModel)]="member.city" 
+                              aria-label="Default select example">
+                              <option  selected>Naveen</option>
+                              @for (city of states; track $index) {
+                                <option  [value]="city">{{city}}</option>
+                              }
+                           </select>
+
                             <label>Country: </label>
-                            <input type="text"
-                                [(ngModel)]="member.country"
-                                class="form-control mx-2"
-                                name="country"
-                            >
+                           <select name="country"  class="form-select" [(ngModel)]="member.country" 
+                              (change)="changeCountry($event)"
+                              aria-label="Default select example">
+                              @for (optionName of countries; track $index) {
+                                <option  [value]="optionName.name">{{optionName.name}}</option>
+                              }
+                           </select>
+
                         </div>
 
                     </form>

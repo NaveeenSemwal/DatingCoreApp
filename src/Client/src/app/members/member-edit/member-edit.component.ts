@@ -23,6 +23,40 @@ export class MemberEditComponent implements OnInit {
 
    member?: Member;
   // user: User | null = null;
+  states? : string[];
+
+  countries = [
+    {
+      id: 'us',
+      name: 'United States'
+
+    },
+    {
+      id: 'uk',
+      name: 'United Kingdom'
+    },
+    {
+      id: 'ca',
+      name: 'Canada'
+    }
+  ];
+
+
+  stateCountryMapping = [
+    {
+      id: 'United States',
+      name: ['Greenbush','Celeryville','Herald','Lupton']
+
+    },
+    {
+      id: 'United Kingdom',
+      name: ['Rosewood','Orviston','Clarence']
+    },
+    {
+      id: 'Canada',
+      name: ['Germanton','Cliff','Welda']
+    }
+  ];
 
   private membersService = inject(MembersService);
   private accountService = inject(AccountService);
@@ -61,6 +95,9 @@ export class MemberEditComponent implements OnInit {
     this.membersService.getMember(user.username).subscribe({
       next: (member) => {
         this.member = member;
+
+        this.changeCountry(this.member.country);
+
       },
       error(err) {
         console.error(err);
@@ -77,6 +114,15 @@ export class MemberEditComponent implements OnInit {
         this.editForm?.reset(this.member);
       }
     });
+  }
+
+  changeCountry(country: any){
+
+    let val = country.target === undefined ? country : country.target.value;
+    this.states = this.stateCountryMapping.find(x=>x.id == val)?.name;
+    
+  
+
   }
 
 }

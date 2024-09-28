@@ -62,6 +62,24 @@ namespace DatingApp.Framework.Business.Services
             return _mapper.Map<Member>(user);
         }
 
+        public async Task<bool> SetMainPhoto(int photoId, string username)
+        {
+            // DO to EF track changes it will update the entities itself
+            var user = await _unitOfWork.UserRepository.GetAsync(x => x.UserName == username, true, includeProperties: "Photos")
+                ?? throw new Exception("Could not find user");
+
+            var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo == null || photo.IsMain) throw new Exception("Cannot use this as main photo");
+
+            var currentMain = user.Photos.FirstOrDefault(x => x.IsMain);
+            if (currentMain != null) currentMain.IsMain = false;
+            photo.IsMain = true;
+
+            return await _unitOfWork.Complete();
+
+        }
+
         /// <summary>
         ///  TODO - Replace this int with any enum,
         ///  NOTE - We need to set traking value to TRUE in GetAsync so that EF can track the entities and update it.

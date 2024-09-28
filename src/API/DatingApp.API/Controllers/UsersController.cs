@@ -4,6 +4,7 @@ using DatingApp.Framework.Business.Interfaces;
 using DatingApp.Framework.Business.Models;
 using DatingApp.Framework.Business.Models.Response;
 using DatingApp.Framework.Data.Context;
+using DatingApp.Framework.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -94,6 +95,15 @@ namespace DatingApp.API.Controllers
 
             return CreatedAtAction(nameof(GetbyUserName),
                 new { username = User.GetUsername() }, memeberPhoto);
+        }
+
+        [HttpPut("set-main-photo/{photoId:int}")]
+        public async Task<ActionResult> SetMainPhoto(int photoId)
+        {
+            if(await _usersService.SetMainPhoto(photoId, User.GetUsername()))
+               return NoContent();
+
+            return BadRequest("Problem setting main photo");
         }
     }
 }

@@ -51,4 +51,8 @@ export class MembersService {
           x.map(m=> m.username === model.username ? model : m))
       }))
   }
+
+  setMainPhoto(photoId: number) {
+    return this.http.put(this.baseUrl + 'users/set-main-photo/' + photoId, {});
+  }
 }

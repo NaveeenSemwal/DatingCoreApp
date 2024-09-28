@@ -3,6 +3,7 @@ using DatingApp.Framework.Business.Models;
 using DatingApp.Framework.Business.Models.Request;
 using DatingApp.Framework.Business.Models.Response;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,5 +29,7 @@ namespace DatingApp.Framework.Business.Interfaces
         //Task<MemberDto> GetUsersWithRoles();
 
         //Task<PhotoDto> AddPhoto(IFormFile file);
+
+        Task<bool> SetMainPhoto(int photoId, string username);
     }
 }

@@ -4,7 +4,6 @@ using DatingApp.Framework.Business.Interfaces;
 using DatingApp.Framework.Business.Models;
 using DatingApp.Framework.Business.Models.Response;
 using DatingApp.Framework.Data.Context;
-using DatingApp.Framework.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -48,7 +47,7 @@ namespace DatingApp.API.Controllers
 
             var usersToReturn  = this.mapper.Map<IEnumerable<Member>>(users);
 
-          //  Response.AddPaginationHeader(users);
+            //  Response.AddPaginationHeader(users);
 
             return Ok(usersToReturn);
         }
@@ -63,11 +62,11 @@ namespace DatingApp.API.Controllers
         [Route("{username}")]
         public async Task<Member> GetbyUserName(string username)
         {
-        
+
             return await _usersService.Get(username);
         }
 
-        
+
         /// <summary>
         /// We donot return anything in terms of data to the user in case of Sucessful update.
         /// </summary>
@@ -101,9 +100,18 @@ namespace DatingApp.API.Controllers
         public async Task<ActionResult> SetMainPhoto(int photoId)
         {
             if(await _usersService.SetMainPhoto(photoId, User.GetUsername()))
-               return NoContent();
+                return NoContent();
 
             return BadRequest("Problem setting main photo");
+        }
+
+
+        [HttpDelete("delete-photo/{photoId:int}")]
+        public async Task<ActionResult> DeletePhoto(int photoId)
+        {
+            if (await _usersService.DeleteUserPhoto(photoId, User.GetUsername())) return Ok();
+
+            return BadRequest("Problem deleting photo");
         }
     }
 }

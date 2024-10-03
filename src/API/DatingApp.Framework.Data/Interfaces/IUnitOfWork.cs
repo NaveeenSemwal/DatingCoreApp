@@ -8,7 +8,7 @@ namespace DatingApp.Framework.Data.Interfaces
 {
     public interface IUnitOfWork
     {
-        //IBooksRepository BooksRepository { get; }
+        IPhotoRepository PhotoRepository { get; }
         //IRolesRepository RolesRepository { get; }
         IUserRepository UserRepository { get; }
         Task<bool> Complete();

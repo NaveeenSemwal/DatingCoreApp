@@ -33,6 +33,8 @@ namespace DatingApp.Framework.Data.Services
 
         public IUserRepository UserRepository => new UserRepository(_dbContext, _logger);
 
+        public IPhotoRepository PhotoRepository => new PhotoRepository(_dbContext, _logger);
+
         public async Task<bool> Complete()
         {
             return await _dbContext.SaveChangesAsync() > 0;

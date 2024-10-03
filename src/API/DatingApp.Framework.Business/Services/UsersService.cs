@@ -29,11 +29,11 @@ namespace DatingApp.Framework.Business.Services
         /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ITokenService _tokenService;
-        //private readonly IPhotoService _photoService;
+        private readonly IPhotoService _photoService;
 
         public UsersService(IUnitOfWork unitOfWork, IMapper mapper, UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager, IHttpContextAccessor httpContextAccessor, ITokenService tokenService
-           )
+            RoleManager<ApplicationRole> roleManager, IHttpContextAccessor httpContextAccessor, ITokenService tokenService,
+           IPhotoService photoService)
         {
             _unitOfWork = unitOfWork;
 
@@ -43,10 +43,29 @@ namespace DatingApp.Framework.Business.Services
             _roleManager = roleManager;
             _httpContextAccessor = httpContextAccessor;
             _tokenService = tokenService;
-            //_photoService = photoService;
+            _photoService = photoService;
         }
 
-        
+        public async Task<bool> DeleteUserPhoto(int photoId, string username)
+        {
+            var user = await _unitOfWork.UserRepository.GetAsync(x => x.UserName == username, true, includeProperties: "Photos");
+
+            if (user == null) throw new Exception("User not found");
+
+            var photo = await _unitOfWork.PhotoRepository.GetAsync(x => x.Id == photoId, true);
+
+            if (photo == null || photo.IsMain) throw new Exception("This photo cannot be deleted");
+
+            if (photo.PublicId != null)
+            {
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+                if (result.Error != null) throw new Exception(result.Error.Message);
+            }
+
+            user.Photos.Remove(photo);
+
+            return await _unitOfWork.Complete();
+        }
 
         public async Task<Member> Get(string username)
         {
@@ -87,14 +106,19 @@ namespace DatingApp.Framework.Business.Services
         /// <param name="memberUpdate"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<bool> UpdateUser(MemberUpdate memberUpdate , string username)
+        public async Task<bool> UpdateUser(MemberUpdate memberUpdate, string username)
         {
             // DO to EF track changes it will update the entities itself
             var user = await _unitOfWork.UserRepository.GetAsync(x => x.UserName == username, true, includeProperties: "Photos");
 
             _mapper.Map(memberUpdate, user);
 
-            return  await _unitOfWork.Complete();
+            return await _unitOfWork.Complete();
+        }
+
+        public async Task<MemberPhoto> AddPhotoAsync(IFormFile file, string username)
+        {
+          return  await _photoService.AddPhotoAsync(file, username);
         }
     }
 }

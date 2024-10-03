@@ -19,16 +19,14 @@ namespace DatingApp.Framework.Business.Services
     public class PhotoService : IPhotoService
     {
         private readonly Cloudinary _cloudinary;
-        private readonly IUsersService _usersService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public PhotoService(IUsersService usersService, IOptions<CloudinarySettings> config, IUnitOfWork unitOfWork, IMapper mapper)
+        public PhotoService(IOptions<CloudinarySettings> config, IUnitOfWork unitOfWork, IMapper mapper)
         {
             var acc = new Account(config.Value.CloudName, config.Value.ApiKey, config.Value.ApiSecret);
 
             _cloudinary = new Cloudinary(acc);
-            _usersService = usersService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }

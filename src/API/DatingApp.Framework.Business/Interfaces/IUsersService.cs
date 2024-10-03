@@ -31,5 +31,7 @@ namespace DatingApp.Framework.Business.Interfaces
         //Task<PhotoDto> AddPhoto(IFormFile file);
 
         Task<bool> SetMainPhoto(int photoId, string username);
+
+        Task<bool> DeleteUserPhoto(int photoId, string username);
     }
 }

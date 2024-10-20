@@ -36,6 +36,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         
             case 401:
               toastr.error('Unauthorised', error.status)
+              router.navigateByUrl('/');
               break;
             case 404:
               router.navigateByUrl('/not-found');

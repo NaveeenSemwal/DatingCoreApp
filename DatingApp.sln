@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.API", "src\API\DatingApp.API\DatingApp.API.csproj", "{2D97FF95-9E16-4DE8-88EA-105B20115CB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatingApp.API", "src\API\DatingApp.API\DatingApp.API.csproj", "{2D97FF95-9E16-4DE8-88EA-105B20115CB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Framework.Data", "src\API\DatingApp.Framework.Data\DatingApp.Framework.Data.csproj", "{E1651FF9-23A6-4B5C-BD2C-75EF4134C64E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatingApp.Framework.Data", "src\API\DatingApp.Framework.Data\DatingApp.Framework.Data.csproj", "{E1651FF9-23A6-4B5C-BD2C-75EF4134C64E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Framework.Business", "src\API\DatingApp.Framework.Business\DatingApp.Framework.Business.csproj", "{ED622BEF-5AB0-444B-86FC-84B4F617EBF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatingApp.Framework.Business", "src\API\DatingApp.Framework.Business\DatingApp.Framework.Business.csproj", "{ED622BEF-5AB0-444B-86FC-84B4F617EBF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Common", "src\API\DatingApp.Common\DatingApp.Common.csproj", "{D068E214-9A21-4E00-A9D2-52261C31232A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatingApp.Common", "src\API\DatingApp.Common\DatingApp.Common.csproj", "{D068E214-9A21-4E00-A9D2-52261C31232A}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DatingApp.Database", "src\Database\DatingApp.Database\DatingApp.Database.sqlproj", "{FADA8F3E-B47B-4AF0-8CDE-065C429DBE4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{D068E214-9A21-4E00-A9D2-52261C31232A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D068E214-9A21-4E00-A9D2-52261C31232A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D068E214-9A21-4E00-A9D2-52261C31232A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FADA8F3E-B47B-4AF0-8CDE-065C429DBE4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FADA8F3E-B47B-4AF0-8CDE-065C429DBE4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FADA8F3E-B47B-4AF0-8CDE-065C429DBE4C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FADA8F3E-B47B-4AF0-8CDE-065C429DBE4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FADA8F3E-B47B-4AF0-8CDE-065C429DBE4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FADA8F3E-B47B-4AF0-8CDE-065C429DBE4C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

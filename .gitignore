@@ -12,3 +12,6 @@
 /src/API/DatingApp.Framework.Data/obj
 /src/Client/.vscode
 /.vs
+/src/Database/DatingApp.Database/bin/Debug
+/src/Database/DatingApp.Database/obj/Debug
+/src/Database/DatingApp.Database/Import Schema Logs

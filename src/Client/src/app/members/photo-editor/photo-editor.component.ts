@@ -19,7 +19,10 @@ import { Photo } from '../../_models/photo';
 })
 export class PhotoEditorComponent implements OnInit {
 
+  // input type variable using Signal 
   member =  input.required<Member>();
+
+  // output type variable using Signal 
   memberChange = output<Member>();
   uploader: FileUploader | undefined;
   hasBaseDropZoneOver = false;
@@ -64,6 +67,19 @@ export class PhotoEditorComponent implements OnInit {
       }
     })
   }
+
+  deletePhoto(photoId: number) {
+    this.memberService.deletePhoto(photoId).subscribe({
+      next: _ => {
+
+        // We also need to update the member for which we have deleted the photo
+        const updatedMember = {...this.member()};
+        updatedMember.photos = updatedMember.photos.filter(x => x.id !== photoId);
+        this.memberChange.emit(updatedMember);
+      }
+    })
+  }
+
 
   initializeUploader() {
 

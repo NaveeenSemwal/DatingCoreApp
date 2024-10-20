@@ -52,16 +52,18 @@ namespace DatingApp.Framework.Business.Services
 
             if (user == null) throw new Exception("User not found");
 
-            var photo = await _unitOfWork.PhotoRepository.GetAsync(x => x.Id == photoId, true);
+            var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
 
             if (photo == null || photo.IsMain) throw new Exception("This photo cannot be deleted");
 
             if (photo.PublicId != null)
             {
+                // Delete photos from Cloudanry
                 var result = await _photoService.DeletePhotoAsync(photo.PublicId);
                 if (result.Error != null) throw new Exception(result.Error.Message);
             }
 
+            // Remove photo from database
             user.Photos.Remove(photo);
 
             return await _unitOfWork.Complete();

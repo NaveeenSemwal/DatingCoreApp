@@ -109,7 +109,8 @@ namespace DatingApp.API.Controllers
         [HttpDelete("delete-photo/{photoId:int}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {
-            if (await _usersService.DeleteUserPhoto(photoId, User.GetUsername())) return Ok();
+            if (await _usersService.DeleteUserPhoto(photoId, User.GetUsername())) 
+                return Ok();
 
             return BadRequest("Problem deleting photo");
         }

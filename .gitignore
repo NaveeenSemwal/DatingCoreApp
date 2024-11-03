@@ -15,3 +15,5 @@
 /src/Database/DatingApp.Database/bin/Debug
 /src/Database/DatingApp.Database/obj/Debug
 /src/Database/DatingApp.Database/Import Schema Logs
+/src/Database/DatingApp.Database/DatingApp.Database.dbmdl
+/src/Database/DatingApp.Database/DatingApp.Database.jfm

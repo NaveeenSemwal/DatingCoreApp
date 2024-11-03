@@ -121,6 +121,9 @@
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\001" />
+    <Folder Include="Scripts\001\Data" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Users.sql">
@@ -131,5 +134,12 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\001\Release.sql" />
+    <None Include="Scripts\001\Data\2000 Initial Database script for master tables.sql" />
   </ItemGroup>
 </Project>

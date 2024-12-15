@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject, input, output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule,  ReactiveFormsModule,  ValidatorFn, Validators } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
 import { NgIf } from '@angular/common';
 // import { TextInputComponent } from "../_forms/text-input/text-input.component";
@@ -12,14 +12,15 @@ import { ToastrService } from 'ngx-toastr';
     standalone: true,
     templateUrl: './register.component.html',
     styleUrl: './register.component.css',
-    imports: [FormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class RegisterComponent implements OnInit {
   private accountService = inject(AccountService);
-  // private fb = inject(FormBuilder);
+  private fb = inject(FormBuilder);
   private router = inject(Router);
   private toastr =  inject(ToastrService);
   
+  // Create a Reactive form
   registerForm: FormGroup = new FormGroup({});
   maxDate = new Date();
   validationErrors: string[] | undefined;
@@ -41,26 +42,21 @@ export class RegisterComponent implements OnInit {
   }
 
   initializeForm() {
-  //   this.registerForm = this.fb.group({
-  //     gender: ['male'],
-  //     username: ['', Validators.required],
-  //     knownAs: ['', Validators.required],
-  //     dateOfBirth: ['', Validators.required],
-  //     city: ['', Validators.required],
-  //     country: ['', Validators.required],
-  //     password: ['', [Validators.required, Validators.minLength(4), 
-  //         Validators.maxLength(8)]],
-  //     confirmPassword: ['', [Validators.required, this.matchValues('password')]],
-  //   });
-  //   this.registerForm.controls['password'].valueChanges.subscribe({
-  //     next: () => this.registerForm.controls['confirmPassword'].updateValueAndValidity()
-  //   })
-  // }
+    this.registerForm = this.fb.group({
+      
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
+      confirmPassword: ['', [Validators.required, this.matchValues('password')]],
+    });
+    this.registerForm.controls['password'].valueChanges.subscribe({
+      next: () => this.registerForm.controls['confirmPassword'].updateValueAndValidity()
+    })
+  }
 
-  // matchValues(matchTo: string): ValidatorFn {
-  //   return (control: AbstractControl) => {
-  //     return control.value === control.parent?.get(matchTo)?.value ? null : {isMatching: true}
-  //   }
+  matchValues(matchTo: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      return control.value === control.parent?.get(matchTo)?.value ? null : {isMatching: true}
+    }
   }
 
   register() {

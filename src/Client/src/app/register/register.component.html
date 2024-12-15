@@ -1,6 +1,6 @@
 <div mat-dialog-content>
 
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
 
     <h2 class="text-center text-primary">Sign up</h2>
     <hr>
@@ -22,8 +22,7 @@
         <input 
             type="text"
             class="form-control"
-            name="username"
-            [(ngModel)]="model.username"
+            formControlName="username"
             placeholder="Username">
 
             <label>Username</label>
@@ -33,11 +32,20 @@
         <input 
             type="password"
             class="form-control"
-            name="password"
-            [(ngModel)]="model.password"
+            formControlName="password"
             placeholder="Password">
 
             <label>Password</label>
+    </div>
+
+    <div class="mb-3 form-floating">
+        <input 
+            type="password"
+            class="form-control"
+            formControlName="confirmPassword"
+            placeholder="Password">
+
+            <label> Confirm Password</label>
     </div>
 
     <!-- <div class="mb-3">
